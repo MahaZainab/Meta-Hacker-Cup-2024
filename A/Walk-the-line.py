@@ -73,5 +73,5 @@ def process_file(filename):
         print("Case #" + str(i) + ": " + results[i-1])
 
 # File with the input data
-filename = 'walk_the_line_validation_input.txt'
+filename = 'walk_the_line_input.txt'
 process_file(filename)

@@ -36,6 +36,6 @@ def process_file(input_filename, output_filename):
             outfile.write(result + '\n')
 
 # File with the input data
-input_filename = 'line_by_line_validation_input.txt'
+input_filename = 'line_by_line_input.txt'
 output_filename = 'line_by_line_output.txt'
 process_file(input_filename, output_filename)

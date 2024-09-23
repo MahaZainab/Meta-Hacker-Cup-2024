@@ -37,5 +37,5 @@ def process_file(input_filename, output_filename):
 
 # File with the input data
 input_filename = 'line_by_line_input.txt'
-output_filename = 'line_by_line_output.txt'
+output_filename = 'output.txt'
 process_file(input_filename, output_filename)

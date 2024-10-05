@@ -25,8 +25,8 @@ def count_subtractorizations(n, primes, is_prime):
 
 def main():
     # Read input from a file
-    input_file_path = 'prime_subtractorization_input.txt'
-    output_file_path = 'prime_subtractorization_output.txt'
+    input_file_path = 'prime_subtractorization_sample_input.txt'
+    output_file_path = 'output.txt'
     
     with open(input_file_path, 'r') as file:
         data = file.read().splitlines()

@@ -15,11 +15,12 @@ def count_subtractorizations(n, primes, is_prime):
     subtractorizations = set()
     
     # Iterate through primes to find subtractorizations for n
-    for prime in primes:
-        if prime >= n:
+    for p1 in primes:
+        if p1 > n:
             break
-        if n + prime <= len(is_prime) and is_prime[n + prime]:
-            subtractorizations.add(prime)
+        p2 = n + p1
+        if p2 <= len(is_prime) and is_prime[p2]:
+            subtractorizations.add(p1)
     
     return len(subtractorizations)
 

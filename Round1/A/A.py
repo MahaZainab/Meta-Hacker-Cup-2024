@@ -1,42 +1,46 @@
-def is_possible(speed, stations):
-    # Function to determine if a given speed can cover all stations
-    current_time = 0
-    for i, (A, B) in enumerate(stations, 1):
-        travel_time = i / speed
-        arrival_time = travel_time
-        if not (A <= arrival_time <= B):
-            return False
-    return True
-
-def solve_case(stations):
-    low, high = 1e-6, 1e6  # Defining the range of speed (using binary search)
-    answer = -1
-    precision = 1e-6
+def solve():
+    import sys
     
-    while high - low > precision:
-        mid = (low + high) / 2
-        if is_possible(mid, stations):
-            answer = mid
-            high = mid  # Try lower speeds
-        else:
-            low = mid  # Increase the speed
-
-    return answer
-
-def main():
-    t = int(input())  # Number of test cases
-    for case_num in range(1, t + 1):
-        n = int(input())  # Number of stations
-        stations = []
-        for _ in range(n):
-            a, b = map(int, input().split())
-            stations.append((a, b))
+    # Specify the input and output file paths
+    input_file_path = r'/Users/abidshakir/Downloads/Meta Hacker Cup 2024/Round 1/Problem No_1/subsonic_subway_input.txt'
+    output_file_path = r'/Users/abidshakir/Downloads/Meta Hacker Cup 2024/Round 1/Problem No_1/output.txt'
+    
+    with open(input_file_path, 'r') as file:
+        data = file.read().splitlines()
+    
+    T = int(data[0])  # Number of test cases
+    index = 1
+    results = []
+    
+    for case_number in range(1, T + 1):
+        N = int(data[index])  # Number of stations
+        index += 1
         
-        result = solve_case(stations)
-        if result == -1:
-            print(f"Case #{case_num}: -1")
-        else:
-            print(f"Case #{case_num}: {result:.6f}")
+        min_speed = float('-inf')  # max(min speed)
+        max_speed = float('inf')    # min(max speed)
+        
+        for i in range(1, N + 1):
+            A_i, B_i = map(int, data[index].split())
+            index += 1
+            
+            # Calculate the speed limits for station i
+            current_min_speed = i / B_i
+            current_max_speed = i / A_i if A_i > 0 else float('inf')  # avoid division by zero
 
-if __name__ == "__main__":
-    main()
+            # Update the overall min and max speed constraints
+            min_speed = max(min_speed, current_min_speed)
+            max_speed = min(max_speed, current_max_speed)
+
+        # Determine if a valid speed exists
+        if min_speed > max_speed:
+            results.append(f"Case #{case_number}: -1")
+        else:
+            results.append(f"Case #{case_number}: {min_speed:.6f}")
+
+    # Write all results to the output file
+    with open(output_file_path, 'w') as output_file:
+        for result in results:
+            output_file.write(result + "\n")
+
+# Execute the function
+solve()

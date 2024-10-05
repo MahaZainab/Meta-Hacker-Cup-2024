@@ -1,5 +1,3 @@
-import math
-
 def can_deliver_with_speed(v, N, intervals):
     """
     Helper function to check if Sonic can deliver at a given speed `v`.
@@ -12,27 +10,26 @@ def can_deliver_with_speed(v, N, intervals):
 
 def find_min_speed(N, intervals):
     """
-    Use binary search to determine the minimum feasible speed.
+    Use a combination of binary and discrete stepping to find the minimum feasible speed.
     """
-    left, right = 1e-9, 1e6  # Set appropriate boundaries for binary search
+    left, right = 1e-6, 1e6
     precision = 1e-7
 
-    iteration = 0  # Added to track the number of iterations
+    # First, perform binary search to get close to the desired value
     while right - left > precision:
-        iteration += 1
         mid = (left + right) / 2.0
-
-        # Debugging output for each step of the binary search
-        if iteration % 100 == 0 or right - left < 1e-3:
-            print(f"Iteration {iteration}: left = {left}, right = {right}, mid = {mid}")
-
         if can_deliver_with_speed(mid, N, intervals):
             right = mid
         else:
             left = mid
 
-    # Final speed calculation
-    return (left + right) / 2.0
+    # Then, refine the speed with a very small step to find the exact minimum
+    min_speed = (left + right) / 2.0
+    step = 1e-7
+    while not can_deliver_with_speed(min_speed, N, intervals):
+        min_speed += step
+
+    return min_speed
 
 def solve(input_file, output_file):
     """
@@ -50,12 +47,11 @@ def solve(input_file, output_file):
                 A, B = map(int, infile.readline().strip().split())
                 intervals.append((A, B))
 
-            # Perform binary search to find the minimum speed
+            # Perform the speed search to find the minimum speed
             min_speed = find_min_speed(N, intervals)
 
             # Verify if the calculated speed is feasible
-            feasible_speed = can_deliver_with_speed(min_speed, N, intervals)
-            if feasible_speed:
+            if can_deliver_with_speed(min_speed, N, intervals):
                 outfile.write(f"Case #{case_num}: {min_speed:.6f}\n")
             else:
                 outfile.write(f"Case #{case_num}: -1\n")

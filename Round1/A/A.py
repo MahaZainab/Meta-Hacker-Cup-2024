@@ -3,10 +3,9 @@ def is_possible(speed, stations):
     current_time = 0
     for i, (A, B) in enumerate(stations, 1):
         travel_time = i / speed
-        arrival_time = current_time + travel_time
+        arrival_time = travel_time
         if not (A <= arrival_time <= B):
             return False
-        current_time = max(current_time + travel_time, A)
     return True
 
 def solve_case(stations):

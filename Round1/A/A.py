@@ -2,7 +2,8 @@ def solve():
     import sys
     
     # Specify the input and output file paths
-    input_file_path = 'subsonic_subway_sample_input.txt'
+    #input_file_path = 'subsonic_subway_sample_input.txt'
+    input_file_path = 'subsonic_subway_validation_input.txt'
     output_file_path = 'output.txt'
     
     with open(input_file_path, 'r') as file:

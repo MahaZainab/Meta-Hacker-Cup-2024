@@ -4,18 +4,17 @@ def can_deliver_with_speed(v, N, intervals):
     """
     for i in range(1, N + 1):
         time_taken = i / v
-        if not (intervals[i - 1][0] <= time_taken <= intervals[i - 1][1]):
+        if time_taken < intervals[i - 1][0] or time_taken > intervals[i - 1][1]:
             return False
     return True
 
 def find_min_speed(N, intervals):
     """
-    Use a combination of binary and discrete stepping to find the minimum feasible speed.
+    Use binary search to determine the minimum feasible speed.
     """
-    left, right = 1e-6, 1e6
+    left, right = 1e-9, 1e6  # Boundaries for binary search
     precision = 1e-7
 
-    # First, perform binary search to get close to the desired value
     while right - left > precision:
         mid = (left + right) / 2.0
         if can_deliver_with_speed(mid, N, intervals):
@@ -23,13 +22,7 @@ def find_min_speed(N, intervals):
         else:
             left = mid
 
-    # Then, refine the speed with a very small step to find the exact minimum
-    min_speed = (left + right) / 2.0
-    step = 1e-7
-    while not can_deliver_with_speed(min_speed, N, intervals):
-        min_speed += step
-
-    return min_speed
+    return right
 
 def solve(input_file, output_file):
     """
@@ -47,7 +40,7 @@ def solve(input_file, output_file):
                 A, B = map(int, infile.readline().strip().split())
                 intervals.append((A, B))
 
-            # Perform the speed search to find the minimum speed
+            # Perform binary search to find the minimum speed
             min_speed = find_min_speed(N, intervals)
 
             # Verify if the calculated speed is feasible

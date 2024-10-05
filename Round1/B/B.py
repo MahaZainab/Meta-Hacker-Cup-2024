@@ -1,53 +1,44 @@
-def sieve_of_eratosthenes(max_n):
-    # Generate a list of prime numbers up to max_n using the Sieve of Eratosthenes
-    is_prime = [True] * (max_n + 1)
-    is_prime[0] = is_prime[1] = False  # 0 and 1 are not primes
-    
-    for i in range(2, int(max_n**0.5) + 1):
-        if is_prime[i]:
-            for j in range(i * i, max_n + 1, i):
-                is_prime[j] = False
-    
-    primes = [i for i in range(max_n + 1) if is_prime[i]]
-    return primes, is_prime
+def calculatePrimes(limit):
+    is_prime = [True] * (limit + 1)
+    is_prime[0] = is_prime[1] = False  # 0 and 1 are not prime numbers
 
-def count_subtractorizations(n, primes, is_prime):
+    for start in range(2, int(limit**0.5) + 1):
+        if is_prime[start]:
+            for multiple in range(start * start, limit + 1, start):
+                is_prime[multiple] = False
+    
+    # print(is_prime)
+
+    return [num for num, prime in enumerate(is_prime) if prime], is_prime
+def count_n_subtractorizations(N):
+    
+    primes, is_prime = calculatePrimes(N)
     subtractorizations = set()
-    
-    # Iterate through primes to find subtractorizations for n
-    for p1 in primes:
-        if p1 > n:
-            break
-        p2 = n + p1
-        if p2 <= len(is_prime) and is_prime[p2]:
-            subtractorizations.add(p1)
-    
+
+    # Check pairs of primes for differences
+    for i in range(len(primes)):
+        for j in range(i, len(primes)):
+            difference = primes[j] - primes[i]
+            if difference > 0 and difference <= N and is_prime[difference]:
+                subtractorizations.add(difference)
+
     return len(subtractorizations)
-
-def main():
-    # Read input from a file
-    input_file_path = 'prime_subtractorization_sample_input.txt'
-    output_file_path = 'output.txt'
-    
-    with open(input_file_path, 'r') as file:
-        data = file.read().splitlines()
-    
-    t = int(data[0])  # Number of test cases
-    cases = [int(data[i]) for i in range(1, t + 1)]
-    max_n = max(cases)
-    
-    # Precompute primes up to max_n
-    primes, is_prime = sieve_of_eratosthenes(max_n)
-    
+def process_file(filename):
     results = []
-    for case_num, n in enumerate(cases, 1):
-        result = count_subtractorizations(n, primes, is_prime)
-        results.append(f"Case #{case_num}: {result}")
+    with open(filename, 'r') as file:
+        # Read number of test cases
+        T = int(file.readline().strip())
+        
+        for _ in range(T):
+            # Read N for the current test case
+            N = int(file.readline().strip())
+            output = count_n_subtractorizations(N)            
+            results.append(output)
     
-    # Write results to the output file
-    with open(output_file_path, 'w') as output_file:
-        for result in results:
-            output_file.write(result + "\n")
-
-if __name__ == "__main__":
-    main()
+    # Print all results
+    for i in range(1, len(results) + 1):
+        print("Case #" + str(i) + ": " + str)
+# File with the input data
+filename = 'prime_subtractorization_sample_input.txt'
+# filename = "prime_subtractorization_validation_input.txt"
+process_file(filename)

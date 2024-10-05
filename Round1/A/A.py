@@ -2,8 +2,8 @@ def solve():
     import sys
     
     # Specify the input and output file paths
-    input_file_path = r'/subsonic_subway_sample_input.txt'
-    output_file_path = r'output.txt'
+    input_file_path = 'subsonic_subway_sample_input.txt'
+    output_file_path = 'output.txt'
     
     with open(input_file_path, 'r') as file:
         data = file.read().splitlines()

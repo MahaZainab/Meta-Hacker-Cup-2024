@@ -4,7 +4,8 @@ def can_deliver_with_speed(v, N, intervals):
     """
     for i in range(1, N + 1):
         time_taken = i / v
-        if time_taken < intervals[i - 1][0] or time_taken > intervals[i - 1][1]:
+        # Add a small tolerance to account for floating-point inaccuracies
+        if not (intervals[i - 1][0] - 1e-7 <= time_taken <= intervals[i - 1][1] + 1e-7):
             return False
     return True
 
@@ -22,7 +23,8 @@ def find_min_speed(N, intervals):
         else:
             left = mid
 
-    return right
+    # Use the mid-point of final bounds as the result
+    return (left + right) / 2.0
 
 def solve(input_file, output_file):
     """

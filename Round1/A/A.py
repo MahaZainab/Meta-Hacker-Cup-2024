@@ -61,6 +61,6 @@ def solve(input_file, output_file):
                 outfile.write(f"Case #{case_num}: -1\n")
 
 # Run the solution with provided input and output file paths
-input_file = '/mnt/data/subsonic_subway_sample_input.txt'
-output_file = '/mnt/data/output.txt'
+input_file = 'subsonic_subway_sample_input.txt'
+output_file = 'output.txt'
 solve(input_file, output_file)

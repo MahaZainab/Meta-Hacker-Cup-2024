@@ -69,7 +69,7 @@ def write_output_file(output_filename, results):
 
 def main():
 
-    test_cases = read_input_file('prime_subtractorization_input.txt')
+    test_cases = read_input_file('prime_subtractorization_validation_input.txt')
     T = len(test_cases)
 
     if T == 0:

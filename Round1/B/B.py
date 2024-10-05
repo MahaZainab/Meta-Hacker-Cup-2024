@@ -36,8 +36,8 @@ def process_file(filename):
             results.append(output)
     
     # Print all results
-for i in range(1, len(results) + 1):
-    print("Case #" + str(i) + ": " + str)
+        for i in range(1, len(results) + 1):
+            print("Case #" + str(i) + ": " + str)
 # File with the input data
 filename = 'prime_subtractorization_sample_input.txt'
 # filename = "prime_subtractorization_validation_input.txt"
